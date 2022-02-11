@@ -1,0 +1,29 @@
+{
+    "mainCommands": "./commands",
+    "supportServer": "https://discord.com/invite/hyperfy",
+    "colors": {
+        "main": "#e9a728",
+        "red": "RED",
+        "green": "GREEN",
+        "yellow": "YELLOW"
+    },
+    "loadingMessage": "Writing into the database...",
+    "guilds": {
+        "maximum": 1
+    },
+    "roles": {
+        "maximum": 3,
+        "guild": {
+            "maximum": 10
+        },
+        "network": {
+            "maximum": 10
+        }
+    },
+    "update": {
+        "timeout": 86400000
+    },
+    "command": {
+        "timeout": 3000
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "ascii-table": "^0.0.9",
+    "canvas": "^2.8.0",
+    "chalk": "^4.1.2",
+    "chart.js": "^3.6.0",
+    "chartjs-node-canvas": "^4.1.4",
+    "colors": "^1.4.0",
+    "console.style": "^0.2.2",
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "mongodb": "^4.1.4",
+    "quickchart-js": "^1.4.2"
+  }
+}
