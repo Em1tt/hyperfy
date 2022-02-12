@@ -7,11 +7,10 @@ async function createSlashCommands(object, bot, deleteMode) {
                         Authorization: "Bot " + process.env.TOKEN
                     },
                     method: deleteMode ? "DELETE" : "POST",
-                    json: deleteMode ? "" : JSON.stringify(object)
+                    body: deleteMode ? "" : JSON.stringify(object)
                 })
                 .then(res => res.json())
                 .then(json => {
-                    console.log(json);
                     if (json.id != undefined) return true;
                     if (json.retry_after != undefined) {
                         console.log(json);
@@ -21,7 +20,8 @@ async function createSlashCommands(object, bot, deleteMode) {
                 return response;
     }
     //UNCOMMENT UPON FINAL RELEASE
-        let response = deleteMode ? await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands/${object}`, true) : await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`, false);
+    console.log(deleteMode);
+        let response = await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`, bot, false);
         //let response = deleteMode ? await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands/${object}`, true) : await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands`, false);
         return response;
 }
