@@ -57,10 +57,23 @@ module.exports = {
       const user = interaction.options._hoistedOptions.find(o => o.name == "user")?.value;
       const client = new MongoClient(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
       client.connect(err => {
-        if (err) console.log(err);
+        let internalEmbed = new MessageEmbed()
+        .setColor(config.colors.red)
+        .setTitle("INTERNAL ERROR")
+        .setDescription("Error has been logged.")
+        .setFooter(bot.user.username, bot.user.avatarURL())
+        .setTimestamp();
+        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
         const guilds = client.db("Global").collection("Guilds");
         const users = client.db("Global").collection("Users");
         guilds.findOne({ guild: interaction.guild.id }, async (err, guild) => {
+          let internalEmbed = new MessageEmbed()
+          .setColor(config.colors.red)
+          .setTitle("INTERNAL ERROR")
+          .setDescription("Error has been logged.")
+          .setFooter(bot.user.username, bot.user.avatarURL())
+          .setTimestamp();
+          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
           if (guild) {
             guild.hypixel_guilds.forEach(g => {
               try {
@@ -68,6 +81,13 @@ module.exports = {
                   const guildData = await result.json();
                   if (user) {
                     users.findOne({ user: user }, (err, userr) => {
+                      let internalEmbed = new MessageEmbed()
+                      .setColor(config.colors.red)
+                      .setTitle("INTERNAL ERROR")
+                      .setDescription("Error has been logged.")
+                      .setFooter(bot.user.username, bot.user.avatarURL())
+                      .setTimestamp();
+                      if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       if (!userr) {
                         let errorEmbed = new MessageEmbed()
                           .setColor(config.colors.red)

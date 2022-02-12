@@ -43,7 +43,6 @@ module.exports = {
     ]
   },
   run: async (bot, interaction) => {
-    try{
     await interaction.deferReply({ ephemeral: true });
     let userEmbed = new MessageEmbed()
       .setColor(config.colors.red)
@@ -70,11 +69,23 @@ module.exports = {
             if (!data.guild_master) return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
             const client = new MongoClient(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
             client.connect(async err => {
-              if (err) console.log(err);
+              let internalEmbed = new MessageEmbed()
+              .setColor(config.colors.red)
+              .setTitle("INTERNAL ERROR")
+              .setDescription("Error has been logged.")
+              .setFooter(bot.user.username, bot.user.avatarURL())
+              .setTimestamp();
+              if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
               let collection = client.db("Global").collection("Users");
               try {
                 collection.findOne({ user: interaction.user.id }, (err, item) => {
-                  if (err) console.log(err);
+                  let internalEmbed = new MessageEmbed()
+                  .setColor(config.colors.red)
+                  .setTitle("INTERNAL ERROR")
+                  .setDescription("Error has been logged.")
+                  .setFooter(bot.user.username, bot.user.avatarURL())
+                  .setTimestamp();
+                  if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                   if (item) {
                     item.guilds.includes(interaction.guild.id) ? "" : item.guilds.push(interaction.guild.id);
                     if (item.uuid != data.guild_master.uuid) {
@@ -88,12 +99,18 @@ module.exports = {
                               .setDescription(`This server already has the maximum amount of guilds connected to it. (${config.guilds.maximum})`)
                               .setFooter(bot.user.username, bot.user.avatarURL())
                               .setTimestamp();
-                              client.close();
+                            client.close();
                             return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
                           } else if (!guild.hypixel_guilds.includes(interaction.options._hoistedOptions.find(i => i.name == "guild")?.value)) {
                             guild.hypixel_guilds.push(interaction.options._hoistedOptions.find(i => i.name == "guild")?.value)
                             guilds.updateOne({ guild: interaction.guild.id }, { $set: { hypixel_guilds: guild.hypixel_guilds } }, (err, result) => {
-                              if (err) console.log(err);
+                              let internalEmbed = new MessageEmbed()
+                              .setColor(config.colors.red)
+                              .setTitle("INTERNAL ERROR")
+                              .setDescription("Error has been logged.")
+                              .setFooter(bot.user.username, bot.user.avatarURL())
+                              .setTimestamp();
+                              if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                             });
                             let successEmbed = new MessageEmbed()
                               .setColor(config.colors.green)
@@ -101,7 +118,7 @@ module.exports = {
                               .setDescription(`Successfully connected \`${interaction.options._hoistedOptions.find(o => o.name == "guild")?.value}\` to this Discord server.`)
                               .setFooter(bot.user.username, bot.user.avatarURL())
                               .setTimestamp();
-                              client.close();
+                            client.close();
                             return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                           } else {
                             let errorEmbed = new MessageEmbed()
@@ -110,12 +127,18 @@ module.exports = {
                               .setDescription(`This guild is already connected to this Discord server.`)
                               .setFooter(bot.user.username, bot.user.avatarURL())
                               .setTimestamp();
-                              client.close();
+                            client.close();
                             return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
                           }
                         } else {
                           guilds.insertOne({ guild: interaction.guild.id, hypixel_guilds: [interaction.options._hoistedOptions.find(i => i.name == "guild")?.value] }, (err, result) => {
-                            if (err) console.log(err);
+                            let internalEmbed = new MessageEmbed()
+                            .setColor(config.colors.red)
+                            .setTitle("INTERNAL ERROR")
+                            .setDescription("Error has been logged.")
+                            .setFooter(bot.user.username, bot.user.avatarURL())
+                            .setTimestamp();
+                            if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                           })
                           let successEmbed = new MessageEmbed()
                             .setColor(config.colors.green)
@@ -123,7 +146,7 @@ module.exports = {
                             .setDescription(`Successfully connected \`${interaction.options._hoistedOptions.find(o => o.name == "guild")?.value}\` to this Discord server.`)
                             .setFooter(bot.user.username, bot.user.avatarURL())
                             .setTimestamp();
-                            client.close();
+                          client.close();
                           return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                         }
                       });
@@ -134,7 +157,7 @@ module.exports = {
                         .setDescription(`You can only connect a guild you are the guild master in.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        client.close();
+                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
                     }
                   } else {
@@ -144,7 +167,7 @@ module.exports = {
                       .setDescription(`You need to connect your account first. Do \`/verify\` for more information.`)
                       .setFooter(bot.user.username, bot.user.avatarURL())
                       .setTimestamp();
-                      client.close();
+                    client.close();
                     return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
                   }
                 });
@@ -184,10 +207,23 @@ module.exports = {
         if (interaction.member.permissions.has("MANAGE_SERVER")) {
           const client = new MongoClient(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
           client.connect(async err => {
-            if (err) console.log(err);
+            let internalEmbed = new MessageEmbed()
+            .setColor(config.colors.red)
+            .setTitle("INTERNAL ERROR")
+            .setDescription("Error has been logged.")
+            .setFooter(bot.user.username, bot.user.avatarURL())
+            .setTimestamp();
+            if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
             let collection = client.db("Global").collection("Guilds");
             try {
               collection.findOne({ guild: interaction.guild.id }, (err, item) => {
+                let internalEmbed = new MessageEmbed()
+                .setColor(config.colors.red)
+                .setTitle("INTERNAL ERROR")
+                .setDescription("Error has been logged.")
+                .setFooter(bot.user.username, bot.user.avatarURL())
+                .setTimestamp();
+                if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                 if (item && item.hypixel_guilds.length) {
                   //Button popup
                   let rows = [];
@@ -210,7 +246,13 @@ module.exports = {
                     if (!button.isButton()) return;
                     if (button.message.interaction.id != interaction.id) return;
                     collection.updateOne({ guild: interaction.guild.id }, { $set: { hypixel_guilds: item.hypixel_guilds.filter(e => e !== button.customId) } }, (err, result) => {
-                      if (err) console.log(err);
+                      let internalEmbed = new MessageEmbed()
+                      .setColor(config.colors.red)
+                      .setTitle("INTERNAL ERROR")
+                      .setDescription("Error has been logged.")
+                      .setFooter(bot.user.username, bot.user.avatarURL())
+                      .setTimestamp();
+                      if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                     });
                     let successEmbed = new MessageEmbed()
                       .setColor(config.colors.green)
@@ -218,7 +260,7 @@ module.exports = {
                       .setDescription(`Unlinked guild ${button.customId} from this Discord server.`)
                       .setFooter(bot.user.username, bot.user.avatarURL())
                       .setTimestamp();
-                      client.close();
+                    client.close();
                     return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                   });
 
@@ -387,10 +429,23 @@ module.exports = {
         } else {
           const client = new MongoClient(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
           client.connect(async err => {
-            if (err) console.log(err);
+            let internalEmbed = new MessageEmbed()
+            .setColor(config.colors.red)
+            .setTitle("INTERNAL ERROR")
+            .setDescription("Error has been logged.")
+            .setFooter(bot.user.username, bot.user.avatarURL())
+            .setTimestamp();
+            if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
             let collection = client.db("Global").collection("Guilds");
             try {
               collection.findOne({ guild: interaction.guild.id }, (err, item) => {
+                let internalEmbed = new MessageEmbed()
+                .setColor(config.colors.red)
+                .setTitle("INTERNAL ERROR")
+                .setDescription("Error has been logged.")
+                .setFooter(bot.user.username, bot.user.avatarURL())
+                .setTimestamp();
+                if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                 if (item?.hypixel_guilds?.length > 1) {
                   //Button popup
                   let rows = [];
@@ -510,7 +565,7 @@ module.exports = {
                             .setFooter(bot.user.username, bot.user.avatarURL())
                             .setImage(chart.getUrl())
                             .setTimestamp();
-                            client.close();
+                          client.close();
                           return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                         }).catch(e => {
                           let errorEmbed = new MessageEmbed()
@@ -645,7 +700,7 @@ module.exports = {
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setImage(chart.getUrl())
                           .setTimestamp();
-                          client.close();
+                        client.close();
                         return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                       }).catch(e => {
                         let errorEmbed = new MessageEmbed()
@@ -665,7 +720,7 @@ module.exports = {
                         .setDescription(`Please try again later...`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        client.close();
+                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
                     }
                   }).catch(e => {
@@ -686,7 +741,7 @@ module.exports = {
                     .setDescription(`Please fill in the optional parameter for this command.`)
                     .setFooter(bot.user.username, bot.user.avatarURL())
                     .setTimestamp();
-                    client.close();
+                  client.close();
                   return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
                 }
               })
@@ -706,16 +761,6 @@ module.exports = {
       }; break;
 
     }
-  }catch(e){
-    let errorEmbed = new MessageEmbed()
-    .setColor(config.colors.red)
-    .setTitle("Hypixel API unaccessable")
-    .setDescription(`Please try again later...`)
-    .setFooter(bot.user.username, bot.user.avatarURL())
-    .setTimestamp();
-  console.log(e);
-  return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
-  }
   },
 };
 
@@ -727,8 +772,4 @@ function scaleXP(raw) {
   } else {
     return 200000 + (raw - 200000) * 0.1
   }
-}
-
-for (i = 0; i < 20; i++) {
-  console.log(i, scaleXP(i * 50000), i * 50000);
 }

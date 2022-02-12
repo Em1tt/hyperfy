@@ -69,20 +69,44 @@ module.exports = {
             } else {
               const client = new MongoClient(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
               client.connect(async err => {
-                if (err) console.log(err);
+                let internalEmbed = new MessageEmbed()
+                .setColor(config.colors.red)
+                .setTitle("INTERNAL ERROR")
+                .setDescription("Error has been logged.")
+                .setFooter(bot.user.username, bot.user.avatarURL())
+                .setTimestamp();
+                if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                 let collection = client.db("Global").collection("Users");
                 let guilds = client.db("Global").collection("Guilds");
                 try {
                   collection.findOne({ user: interaction.user.id }, (err, item) => {
-                    if (err) console.log(err);
+                    let internalEmbed = new MessageEmbed()
+                    .setColor(config.colors.red)
+                    .setTitle("INTERNAL ERROR")
+                    .setDescription("Error has been logged.")
+                    .setFooter(bot.user.username, bot.user.avatarURL())
+                    .setTimestamp();
+                    if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                     if (item) {
                       item.guilds.includes(interaction.guild.id) ? 0 : item.guilds.push(interaction.guild.id);
                       collection.updateOne({ user: interaction.user.id }, { $set: { hypixel_username: data.username, uuid: data.uuid, guilds: item.guilds } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                     } else {
                       collection.insertOne({ user: interaction.user.id, hypixel_username: data.username, uuid: data.uuid, guilds: [interaction.guild.id] }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                     };
                     let successEmbed = new MessageEmbed()
@@ -93,7 +117,13 @@ module.exports = {
                       .setFooter(bot.user.username, bot.user.avatarURL())
                       .setTimestamp();
                     guilds.findOne({ guild: interaction.guild.id }, (err, guild) => {
-                      if (err) console.log(err);
+                      let internalEmbed = new MessageEmbed()
+                      .setColor(config.colors.red)
+                      .setTitle("INTERNAL ERROR")
+                      .setDescription("Error has been logged.")
+                      .setFooter(bot.user.username, bot.user.avatarURL())
+                      .setTimestamp();
+                      if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       if (guild) {
                         guild.hypixel_guilds.forEach(hypixel_guild => {
                           request(`https://api.slothpixel.me/api/guilds/name/${hypixel_guild}`).then(async result => {

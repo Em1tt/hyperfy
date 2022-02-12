@@ -249,9 +249,22 @@ module.exports = {
           useUnifiedTopology: true,
         });
         client.connect(async err => {
-          if (err) console.log(err);
+          let internalEmbed = new MessageEmbed()
+          .setColor(config.colors.red)
+          .setTitle("INTERNAL ERROR")
+          .setDescription("Error has been logged.")
+          .setFooter(bot.user.username, bot.user.avatarURL())
+          .setTimestamp();
+          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
           const db = client.db("Global").collection("Guilds");
           db.findOne({ guild: interaction.guild.id }, (err, item) => {
+            let internalEmbed = new MessageEmbed()
+            .setColor(config.colors.red)
+            .setTitle("INTERNAL ERROR")
+            .setDescription("Error has been logged.")
+            .setFooter(bot.user.username, bot.user.avatarURL())
+            .setTimestamp();
+            if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
             if (!item) {
               let errorEmbed = new MessageEmbed()
                 .setColor(config.colors.red)
@@ -284,7 +297,13 @@ module.exports = {
                     } else {
                       obj.guest = item?.roles?.guest ? [...new Set(item.roles.guest.concat(role.value))] : [role.value];
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { ...item.roles, ...obj } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -298,7 +317,13 @@ module.exports = {
                   } else if (interaction.options._subcommand == "unset") { //Unset
                     if (item?.roles?.guest?.length == 1) {
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { guest: [] } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -367,7 +392,13 @@ module.exports = {
                     } else {
                       obj.member = item?.roles?.member ? [...new Set(item.roles.member.concat(role.value))] : [role.value];
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { ...item.roles, ...obj } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -381,7 +412,13 @@ module.exports = {
                   } else if (interaction.options._subcommand == "unset") { //Unset
                     if (item?.roles?.member?.length == 1) {
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { member: [] } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -413,7 +450,13 @@ module.exports = {
                         if (!button.isButton()) return;
                         if (button.message.interaction.id != interaction.id) return;
                         db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { member: item.roles.member.filter(e => e !== button.customId) } } }, (err, result) => {
-                          if (err) console.log(err);
+                          let internalEmbed = new MessageEmbed()
+                          .setColor(config.colors.red)
+                          .setTitle("INTERNAL ERROR")
+                          .setDescription("Error has been logged.")
+                          .setFooter(bot.user.username, bot.user.avatarURL())
+                          .setTimestamp();
+                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -450,7 +493,13 @@ module.exports = {
                     } else {
                       obj.verified = item?.roles?.verified ? [...new Set(item.roles.verified.concat(role.value))] : [role.value];
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { ...item.roles, ...obj } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -464,7 +513,13 @@ module.exports = {
                   } else if (interaction.options._subcommand == "unset") { //Unset
                     if (item?.roles?.verified?.length == 1) {
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { verified: [] } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -496,7 +551,13 @@ module.exports = {
                         if (!button.isButton()) return;
                         if (button.message.interaction.id != interaction.id) return;
                         db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { verified: item.roles.verified.filter(e => e !== button.customId) } } }, (err, result) => {
-                          if (err) console.log(err);
+                          let internalEmbed = new MessageEmbed()
+                          .setColor(config.colors.red)
+                          .setTitle("INTERNAL ERROR")
+                          .setDescription("Error has been logged.")
+                          .setFooter(bot.user.username, bot.user.avatarURL())
+                          .setTimestamp();
+                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -536,7 +597,13 @@ module.exports = {
                       );
                       obj.guild = item?.roles?.guild ? [...new Set(item.roles.guild.concat({ rank: rank.value, role: role.value }))] : [{ rank: rank.value, role: role.value }];
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { ...item.roles, ...obj } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -550,7 +617,13 @@ module.exports = {
                   } else if (interaction.options._subcommand == "unset") { //Unset
                     if (item?.roles?.guild?.length == 1) {
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { guild: [] } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -582,7 +655,13 @@ module.exports = {
                         if (!button.isButton()) return;
                         if (button.message.interaction.id != interaction.id) return;
                         db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { verified: item.roles.guild.filter(e => e.role !== button.customId) } } }, (err, result) => {
-                          if (err) console.log(err);
+                          let internalEmbed = new MessageEmbed()
+                          .setColor(config.colors.red)
+                          .setTitle("INTERNAL ERROR")
+                          .setDescription("Error has been logged.")
+                          .setFooter(bot.user.username, bot.user.avatarURL())
+                          .setTimestamp();
+                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -622,7 +701,13 @@ module.exports = {
                       );
                       obj.network = item?.roles?.network ? [...new Set(item.roles.network.concat({ rank: rank.value, role: role.value }))] : [{ rank: rank.value, role: role.value }];
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { ...item.roles, ...obj } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -636,7 +721,13 @@ module.exports = {
                   } else if (interaction.options._subcommand == "unset") { //Unset
                     if (item?.roles?.network?.length == 1) {
                       db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { network: [] } } }, (err, result) => {
-                        if (err) console.log(err);
+                        let internalEmbed = new MessageEmbed()
+                        .setColor(config.colors.red)
+                        .setTitle("INTERNAL ERROR")
+                        .setDescription("Error has been logged.")
+                        .setFooter(bot.user.username, bot.user.avatarURL())
+                        .setTimestamp();
+                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -668,7 +759,13 @@ module.exports = {
                         if (!button.isButton()) return;
                         if (button.message.interaction.id != interaction.id) return;
                         db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { verified: item.roles.network.filter(e => e.role !== button.customId) } } }, (err, result) => {
-                          if (err) console.log(err);
+                          let internalEmbed = new MessageEmbed()
+                          .setColor(config.colors.red)
+                          .setTitle("INTERNAL ERROR")
+                          .setDescription("Error has been logged.")
+                          .setFooter(bot.user.username, bot.user.avatarURL())
+                          .setTimestamp();
+                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)

@@ -30,9 +30,22 @@ module.exports = {
       }, config.command.timeout);
       const client = new MongoClient(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
       client.connect(err => {
-        if (err) console.log(err);
+        let internalEmbed = new MessageEmbed()
+        .setColor(config.colors.red)
+        .setTitle("INTERNAL ERROR")
+        .setDescription("Error has been logged.")
+        .setFooter(bot.user.username, bot.user.avatarURL())
+        .setTimestamp();
+        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
         const guilds = client.db("Global").collection("Guilds");
         guilds.findOne({ guild: interaction.guild.id }, (err, guild) => {
+          let internalEmbed = new MessageEmbed()
+          .setColor(config.colors.red)
+          .setTitle("INTERNAL ERROR")
+          .setDescription("Error has been logged.")
+          .setFooter(bot.user.username, bot.user.avatarURL())
+          .setTimestamp();
+          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
           if (guild) {
             let connectionsEmbed = new MessageEmbed()
               .setColor(config.colors.main)
@@ -60,14 +73,13 @@ module.exports = {
         });
       });
     } catch (e) {
-      let errorEmbed = new MessageEmbed()
-        .setColor(config.colors.red)
-        .setTitle("Hypixel API unaccessable")
-        .setDescription(`Please try again later...`)
-        .setFooter(bot.user.username, bot.user.avatarURL())
-        .setTimestamp();
-      console.log(e);
-      return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
+      let internalEmbed = new MessageEmbed()
+      .setColor(config.colors.red)
+      .setTitle("INTERNAL ERROR")
+      .setDescription("Error has been logged.")
+      .setFooter(bot.user.username, bot.user.avatarURL())
+      .setTimestamp();
+      return console.log(e), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
     }
   },
 };

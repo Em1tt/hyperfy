@@ -1,4 +1,4 @@
-const { request } = require("../../external/requestHandler");
+/*const { request } = require("../../external/requestHandler");
 const { MongoClient } = require('mongodb');
 const config = require("../../config.json");
 
@@ -34,3 +34,4 @@ module.exports = {
       //console.log(interaction, interaction.options);
   },
 };
+*/
