@@ -20,8 +20,8 @@ async function createSlashCommands(object, bot) {
                 return response;
     }
     //UNCOMMENT UPON FINAL RELEASE
-        //let response = await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`);
-        let response = await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands`, false);
+        let response = await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`);
+        let response = await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/876552011196272700/commands`, false);
         return response;
 }
 module.exports = {
