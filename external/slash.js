@@ -1,17 +1,16 @@
 const fetch = require("node-fetch");
-async function createSlashCommands(object, bot, deleteMode) {
-    async function posts(url, deleteMode) {
+async function createSlashCommands(object, bot) {
+    async function posts(url) {
             let response = await fetch(url, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: "Bot " + process.env.TOKEN
                     },
-                    method: deleteMode ? "DELETE" : "POST",
-                    body: deleteMode ? "" : JSON.stringify(object)
+                    method: "POST",
+                    body: JSON.stringify(object)
                 })
                 .then(res => res.json())
                 .then(json => {
-                    console.log(json);
                     if (json.id != undefined) return true;
                     if (json.retry_after != undefined) {
                         console.log(json);
@@ -21,8 +20,7 @@ async function createSlashCommands(object, bot, deleteMode) {
                 return response;
     }
     //UNCOMMENT UPON FINAL RELEASE
-    console.log(deleteMode);
-        let response = await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`, bot, false);
+        let response = await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`);
         //let response = deleteMode ? await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands/${object}`, true) : await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands`, false);
         return response;
 }
