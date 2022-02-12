@@ -39,9 +39,9 @@ bot.once("ready", async () => {
                     commandTable.addRow(require(command).struct.name, "🚫", command);
                 }
             })
-        }, (index % 5 == 0 && index > 0) ? index * 5 * 1000 : iteration * 5 * 5 * 1000);
+        }, (index % 5 == 0 && index > 0) ? index * 5 * 10000 : iteration * 5 * 5 * 10000);
     })
-    console.log(new AsciiTable().addRow(`Waiting for slash commands to register (approx. ${(iteration + 1) * 15} seconds)`).toString().cyan);
+    console.log(new AsciiTable().addRow(`Waiting for slash commands to register (approx. ${(iteration + 1) * 30} seconds)`).toString().cyan);
     let decoyIteration = 0;
     let interval = setInterval(() => {
         commandTable.setTitle("Registration of Slash commands ".cyan + `#${decoyIteration + 1}/${iteration + 1}`.cyan);
