@@ -152,7 +152,7 @@ module.exports = {
                         let errorEmbed = new MessageEmbed()
                           .setColor(config.colors.red)
                           .setTitle("NO LINKED GUILD FOUND")
-                          .setDescription(`Please fill in the optional parameter for this command.`)
+                          .setDescription(`There's no Hypixel guilds connected to this Discord server.`)
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
                         client.close();
