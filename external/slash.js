@@ -7,7 +7,7 @@ async function createSlashCommands(object, bot, deleteMode) {
                         Authorization: "Bot " + process.env.TOKEN
                     },
                     method: deleteMode ? "DELETE" : "POST",
-                    body: deleteMode ? "" : JSON.stringify(object)
+                    json: deleteMode ? "" : JSON.stringify(object)
                 })
                 .then(res => res.json())
                 .then(json => {
@@ -20,8 +20,8 @@ async function createSlashCommands(object, bot, deleteMode) {
                 return response;
     }
     //UNCOMMENT UPON FINAL RELEASE
-        //let response = deleteMode ? await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands/${object}`, true) : await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`, false);
-        let response = deleteMode ? await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands/${object}`, true) : await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands`, false);
+        let response = deleteMode ? await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands/${object}`, true) : await posts(`https://discord.com/api/v8/applications/${bot.user.id}/commands`, false);
+        //let response = deleteMode ? await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands/${object}`, true) : await posts(`https://discord.com/api/v8/applications/${bot.user.id}/guilds/934560536606179329/commands`, false);
         return response;
 }
 module.exports = {
