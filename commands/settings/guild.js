@@ -391,7 +391,7 @@ module.exports = {
             let collection = client.db("Global").collection("Guilds");
             try {
               collection.findOne({ guild: interaction.guild.id }, (err, item) => {
-                if (item.hypixel_guilds.length > 1) {
+                if (item?.hypixel_guilds?.length > 1) {
                   //Button popup
                   let rows = [];
                   let row = [];
@@ -547,7 +547,7 @@ module.exports = {
                     });
 
                   });
-                } else if (item.hypixel_guilds.length) {
+                } else if (item?.hypixel_guilds?.length) {
                   request(`https://api.slothpixel.me/api/guilds/name/${item.hypixel_guilds[0]}`).then(async response => {
                     const data = await response.json();
                     if (data.guild_master) {
