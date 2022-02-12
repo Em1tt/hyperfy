@@ -11,6 +11,7 @@ async function createSlashCommands(object, bot, deleteMode) {
                 })
                 .then(res => res.json())
                 .then(json => {
+                    console.log(json);
                     if (json.id != undefined) return true;
                     if (json.retry_after != undefined) {
                         console.log(json);
