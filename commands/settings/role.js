@@ -255,7 +255,7 @@ module.exports = {
           .setDescription("Error has been logged.")
           .setFooter(bot.user.username, bot.user.avatarURL())
           .setTimestamp();
-          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
           const db = client.db("Global").collection("Guilds");
           db.findOne({ guild: interaction.guild.id }, (err, item) => {
             let internalEmbed = new MessageEmbed()
@@ -264,7 +264,7 @@ module.exports = {
             .setDescription("Error has been logged.")
             .setFooter(bot.user.username, bot.user.avatarURL())
             .setTimestamp();
-            if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+            if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
             if (!item) {
               let errorEmbed = new MessageEmbed()
                 .setColor(config.colors.red)
@@ -274,7 +274,7 @@ module.exports = {
                 )
                 .setFooter(bot.user.username, bot.user.avatarURL())
                 .setTimestamp();
-              //client.close();
+              client.close();
               return interaction.editReply({
                 content: `⠀`,
                 ephemeral: true,
@@ -303,7 +303,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -311,7 +312,6 @@ module.exports = {
                         .setDescription(`Added role <@&${role.value}> as a guest role.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                     }
                   } else if (interaction.options._subcommand == "unset") { //Unset
@@ -323,7 +323,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -331,7 +332,6 @@ module.exports = {
                         .setDescription(`Unlinked guest role <@&${item.roles.guest[0]}> from this Discord server.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                     } else if (item?.roles?.guest?.length > 1) {
                       //Button popup
@@ -355,7 +355,14 @@ module.exports = {
                         if (!button.isButton()) return;
                         if (button.message.interaction.id != interaction.id) return;
                         db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { guest: item.roles.guest.filter(e => e !== button.customId) } } }, (err, result) => {
-                          if (err) console.log(err);
+                          let internalEmbed = new MessageEmbed()
+                          .setColor(config.colors.red)
+                          .setTitle("INTERNAL ERROR")
+                          .setDescription("Error has been logged.")
+                          .setFooter(bot.user.username, bot.user.avatarURL())
+                          .setTimestamp();
+                          client.close();
+                          if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -363,7 +370,6 @@ module.exports = {
                           .setDescription(`Unlinked guest role <@&${button.customId}> from this Discord server.`)
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                        client.close();
                         return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                       });
                     } else {
@@ -398,7 +404,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -406,7 +413,6 @@ module.exports = {
                         .setDescription(`Added role <@&${role.value}> as a member role.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                     }
                   } else if (interaction.options._subcommand == "unset") { //Unset
@@ -418,7 +424,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -426,7 +433,6 @@ module.exports = {
                         .setDescription(`Unlinked member role <@&${item.roles.member[0]}> from this Discord server.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                     } else if (item?.roles?.member?.length > 1) {
                       //Button popup
@@ -456,7 +462,8 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          client.close();
+                          if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -464,7 +471,6 @@ module.exports = {
                           .setDescription(`Unlinked member role <@&${button.customId}> from this Discord server.`)
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                        client.close();
                         return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                       });
                     } else {
@@ -499,7 +505,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -507,7 +514,6 @@ module.exports = {
                         .setDescription(`Added role <@&${role.value}> as a verified role.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                     }
                   } else if (interaction.options._subcommand == "unset") { //Unset
@@ -519,7 +525,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -527,7 +534,6 @@ module.exports = {
                         .setDescription(`Unlinked verified role <@&${item.roles.verified[0]}> from this Discord server.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                     } else if (item?.roles?.verified?.length > 1) {
                       //Button popup
@@ -557,7 +563,8 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          client.close();
+                          if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -565,7 +572,6 @@ module.exports = {
                           .setDescription(`Unlinked verified role <@&${button.customId}> from this Discord server.`)
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                        client.close();
                         return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                       });
                     } else {
@@ -603,7 +609,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -611,7 +618,6 @@ module.exports = {
                         .setDescription(`Added role <@&${role.value}> as a role for the guild rank **${rank.value}**.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                     }
                   } else if (interaction.options._subcommand == "unset") { //Unset
@@ -623,7 +629,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -631,7 +638,6 @@ module.exports = {
                         .setDescription(`Unlinked role <@&${item.roles.guild[0].role}> from guild rank **${item.roles.guild[0].rank}**.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                     } else if (item?.roles?.guild?.length > 1) {
                       //Button popup
@@ -661,7 +667,8 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          client.close();
+                          if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -669,7 +676,6 @@ module.exports = {
                           .setDescription(`Unlinked verified role <@&${button.customId}> from this Discord server.`)
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                        client.close();
                         return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                       });
                     } else {
@@ -707,7 +713,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -715,7 +722,6 @@ module.exports = {
                         .setDescription(`Added role <@&${role.value}> as a role for the network rank **${rank.value}**.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                     }
                   } else if (interaction.options._subcommand == "unset") { //Unset
@@ -727,7 +733,8 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        client.close();
+                        if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -735,7 +742,6 @@ module.exports = {
                         .setDescription(`Unlinked role <@&${item.roles.network[0].role}> from network rank **${item.roles.network[0].rank}**.`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                      client.close();
                       return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                     } else if (item?.roles?.network?.length > 1) {
                       //Button popup
@@ -755,7 +761,7 @@ module.exports = {
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
                       interaction.editReply({ content: `⠀`, embeds: [waitEmbed], components: rows, ephemeral: true });
-                      bot.on("interactionCreate", button => {
+                      bot.on("interactionCreate", async button => {
                         if (!button.isButton()) return;
                         if (button.message.interaction.id != interaction.id) return;
                         db.updateOne({ guild: interaction.guild.id }, { $set: { roles: { verified: item.roles.network.filter(e => e.role !== button.customId) } } }, (err, result) => {
@@ -765,7 +771,8 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          client.close();
+                          if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -773,7 +780,6 @@ module.exports = {
                           .setDescription(`Unlinked verified role <@&${button.customId}> from this Discord server.`)
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                        client.close();
                         return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                       });
                     } else {

@@ -110,7 +110,9 @@ module.exports = {
                               .setDescription("Error has been logged.")
                               .setFooter(bot.user.username, bot.user.avatarURL())
                               .setTimestamp();
-                              if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          client.close();
+
+                              if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                             });
                             let successEmbed = new MessageEmbed()
                               .setColor(config.colors.green)
@@ -118,7 +120,6 @@ module.exports = {
                               .setDescription(`Successfully connected \`${interaction.options._hoistedOptions.find(o => o.name == "guild")?.value}\` to this Discord server.`)
                               .setFooter(bot.user.username, bot.user.avatarURL())
                               .setTimestamp();
-                            client.close();
                             return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                           } else {
                             let errorEmbed = new MessageEmbed()
@@ -138,7 +139,8 @@ module.exports = {
                             .setDescription("Error has been logged.")
                             .setFooter(bot.user.username, bot.user.avatarURL())
                             .setTimestamp();
-                            if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          client.close();
+                            if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                           })
                           let successEmbed = new MessageEmbed()
                             .setColor(config.colors.green)
@@ -146,7 +148,6 @@ module.exports = {
                             .setDescription(`Successfully connected \`${interaction.options._hoistedOptions.find(o => o.name == "guild")?.value}\` to this Discord server.`)
                             .setFooter(bot.user.username, bot.user.avatarURL())
                             .setTimestamp();
-                          client.close();
                           return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed] });
                         }
                       });
@@ -252,7 +253,8 @@ module.exports = {
                       .setDescription("Error has been logged.")
                       .setFooter(bot.user.username, bot.user.avatarURL())
                       .setTimestamp();
-                      if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                      client.close();
+                      if(err) return console.log(err), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                     });
                     let successEmbed = new MessageEmbed()
                       .setColor(config.colors.green)
@@ -260,7 +262,6 @@ module.exports = {
                       .setDescription(`Unlinked guild ${button.customId} from this Discord server.`)
                       .setFooter(bot.user.username, bot.user.avatarURL())
                       .setTimestamp();
-                    client.close();
                     return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [successEmbed], components: [] });
                   });
 
