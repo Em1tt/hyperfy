@@ -274,7 +274,7 @@ module.exports = {
                 )
                 .setFooter(bot.user.username, bot.user.avatarURL())
                 .setTimestamp();
-              client.close();
+              //client.close();
               return interaction.editReply({
                 content: `⠀`,
                 ephemeral: true,
