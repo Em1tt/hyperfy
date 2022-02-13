@@ -229,7 +229,11 @@ module.exports = {
                   .setDescription(`User was given the following roles: ${roles.filter(i => !roless.includes(i)).length ? roles.filter(i => !roless.includes(i)).map(r => `<@&${r}>`).join(" ") : "`none`"}`)
                   .setFooter(bot.user.username, bot.user.avatarURL())
                   .setTimestamp();
+                  try{
                 await u.roles.add(roles);
+                  }catch(e){
+                    e;
+                  }
                 if (update) {
                   return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
                 }

@@ -206,14 +206,14 @@ module.exports = {
           .setTimestamp();
         return interaction.editReply({ ephemeral: true, embeds: [errorEmbed] });
       } else if (
-        interaction.guild.me.roles.highest.position <=
+        interaction.guild.me.roles.botRole.position <
         interaction.guild.roles.cache.get(role?.value)?.position
       ) {
         let errorEmbed = new MessageEmbed()
           .setColor(config.colors.red)
           .setTitle("SETTING ROLE FAILED")
           .setDescription(
-            `Role <@&${role.value}> cannot be used as it's higher in the role hierarchy than my highest role.`
+            `Role <@&${role.value}> cannot be used as it's higher in the role hierarchy than my bot role.`
           )
           .setFooter(bot.user.username, bot.user.avatarURL())
           .setTimestamp();
