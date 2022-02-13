@@ -255,7 +255,7 @@ module.exports = {
           .setDescription("Error has been logged.")
           .setFooter(bot.user.username, bot.user.avatarURL())
           .setTimestamp();
-          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
           const db = client.db("Global").collection("Guilds");
           db.findOne({ guild: interaction.guild.id }, (err, item) => {
             let internalEmbed = new MessageEmbed()
@@ -264,7 +264,7 @@ module.exports = {
             .setDescription("Error has been logged.")
             .setFooter(bot.user.username, bot.user.avatarURL())
             .setTimestamp();
-            if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+            if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
             if (!item) {
               let errorEmbed = new MessageEmbed()
                 .setColor(config.colors.red)
@@ -303,7 +303,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -323,7 +323,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -398,7 +398,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -418,7 +418,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -456,7 +456,7 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -499,7 +499,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -519,7 +519,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -557,7 +557,7 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -603,7 +603,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -623,7 +623,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -661,7 +661,7 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
@@ -707,7 +707,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -727,7 +727,7 @@ module.exports = {
                         .setDescription("Error has been logged.")
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp();
-                        if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                        if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                       });
                       let successEmbed = new MessageEmbed()
                         .setColor(config.colors.green)
@@ -765,7 +765,7 @@ module.exports = {
                           .setDescription("Error has been logged.")
                           .setFooter(bot.user.username, bot.user.avatarURL())
                           .setTimestamp();
-                          if(err) return console.log(err), client.close(), interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
+                          if(err) return console.log(err), /*client.close(),*/ interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [internalEmbed] });
                         });
                         let successEmbed = new MessageEmbed()
                           .setColor(config.colors.green)
