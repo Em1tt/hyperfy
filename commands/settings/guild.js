@@ -57,7 +57,7 @@ module.exports = {
     }, config.command.timeout);
     switch (interaction.options._subcommand) {
       case "add": {
-        if (interaction.member.permissions.has("MANAGE_SERVER")) {
+        if (interaction.member.permissions.has("MANAGE_GUILD")) {
           request(`https://api.slothpixel.me/api/guilds/name/${interaction.options._hoistedOptions.find(o => o.name == "guild")?.value}`).then(async result => {
             let data = await result.json();
             let errorEmbed = new MessageEmbed()
@@ -198,14 +198,14 @@ module.exports = {
           let errorEmbed = new MessageEmbed()
             .setColor(config.colors.red)
             .setTitle("MISSING PERMISSIONS")
-            .setDescription(`This command requires the \`MANAGE SERVER\` permission.`)
+            .setDescription(`This command requires the \`MANAGE GUILD\` permission.`)
             .setFooter(bot.user.username, bot.user.avatarURL())
             .setTimestamp();
           return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
         }
       }; break;
       case "remove": {
-        if (interaction.member.permissions.has("MANAGE_SERVER")) {
+        if (interaction.member.permissions.has("MANAGE_GUILD")) {
           const client = new MongoClient(process.env.MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
           client.connect(async err => {
             let internalEmbed = new MessageEmbed()
@@ -292,7 +292,7 @@ module.exports = {
           let errorEmbed = new MessageEmbed()
             .setColor(config.colors.red)
             .setTitle("MISSING PERMMISSIONS")
-            .setDescription(`This command requires the \`MANAGE SERVER\` permission.`)
+            .setDescription(`This command requires the \`MANAGE GUILD\` permission.`)
             .setFooter(bot.user.username, bot.user.avatarURL())
             .setTimestamp();
           return interaction.editReply({ content: `⠀`, ephemeral: true, embeds: [errorEmbed] });
